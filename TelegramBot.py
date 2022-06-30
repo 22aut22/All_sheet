@@ -5,8 +5,8 @@ from TelegaFunctions import get_user_gid, get_gid_project, get_workspace_map
 
 client_asana = asana.Client.access_token("1/383667085808411:fe9ad11908a3bae3f063662649f7e589")
 bot = telebot.TeleBot("1999468498:AAHvT8bqUqyQ2ZaYx2HHxD9vv6l3mOMgKRY")
-workspace_name = "TEST"
-project_name = "Движение заказов"
+workspace_name = "eltorg66.ru"
+project_name = "Движение заявок Сборка"
 user_name = "utkin@eltorg66.ru"
 
 markup = types.InlineKeyboardMarkup(row_width=2)
@@ -65,40 +65,9 @@ def callback_inline(call):
         print(repr(e))
 
 
-# @bot.message_handler(content_types=['document', 'image'])
-# def send_welcome(message):
-#     bot.send_message(message.chat.id, "Создать задачу для Петько ?", reply_markup=markup)
-
-
-# @bot.message_handler(content_types='text')
-# def message_reply(message):
-#
-#     if message.text == "Создать задачу":
-#         gid_workspace, _ = get_workspace_map(workspace_name)
-#         gid_project = get_gid_project(workspace_name, project_name)
-#         user_gid = get_user_gid(gid_workspace, user_name)
-#
-#         template_task = {"workspace": gid_workspace,
-#                          "assignee": user_gid,
-#                          "projects": gid_project,
-#                          "name": "Рассчитать проект по ТЗ",
-#                          "notes": "Рассчитать проект по приложенному ТЗ"}
-#
-#         result = client_asana.tasks.create_task(template_task, opt_pretty=True)
-#
-#         src = send_welcome()
-#
-#         with open(src, 'rb') as f:
-#             data = f.read()
-#         client_asana.attachments.create_attachment_for_task(
-#             result['gid'], file_content=data, file_name=message.document.file_name, opt_pretty=True)
-#
-#         bot.send_message(message.chat.id, "Задача создана, бро")
-
-
-@bot.message_handler(func=lambda message: True)
-def echo_all(message):
-    bot.reply_to(message, message.text)
+@bot.message_handler(commands=['start'])
+def start_message(message):
+    bot.send_message(message.chat.id, 'Дарова, чел! Я мало что умею, но всё же ...')
 
 
 bot.infinity_polling()
